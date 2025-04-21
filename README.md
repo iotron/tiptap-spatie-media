@@ -27,38 +27,54 @@ You can install the package via Composer:
 composer require iotronlab/tiptap-spatie-media
 ```
 
-Next, publish and run the migrations with:
+## ⚡ Quick Setup
+
+To quickly integrate **Tiptap Spatie Media** into your Laravel project, simply run:
 
 ```bash
-php artisan vendor:publish --tag="tiptap-spatie-media-migrations"
-php artisan migrate
+php artisan tiptap-spatie-media:install
 ```
 
-Publish the configuration file with:
+This command will:
+
+- Automatically publish the `filament-tiptap-editor.php` config file (if not already published).
+- Inject the correct `media_action` class reference:
+  ```php
+  'media_action' => \Iotronlab\TiptapSpatieMedia\TiptapSpatieMediaAction::class,
+  ```
+- Configure the editor to support media uploads via Spatie's Media Library.
+
+✅ You're now ready to use Tiptap with Spatie Media support!
+
+---
+
+## 🛠 Manual Installation
+
+Prefer to configure things manually? Follow these steps:
+
+### 1. Publish the configuration file
 
 ```bash
-php artisan vendor:publish --tag="tiptap-spatie-media-config"
+php artisan vendor:publish --tag="filament-tiptap-editor-config"
 ```
 
-Optionally, you can publish the views using:
+### 2. Update the configuration
 
-```bash
-php artisan vendor:publish --tag="tiptap-spatie-media-views"
-```
-
-## Configuration
-
-To modify the media action for the Tiptap Editor, update the `media_action` in your config file:
+In the published `config/filament-tiptap-editor.php`, locate the `media_action` key and modify it like so:
 
 ```php
-// Comment out the existing action
+// Comment out or remove the default action
 // 'media_action' => FilamentTiptapEditor\Actions\MediaAction::class,
 
-// Replace it with the new action
+// Replace with the custom media action
 'media_action' => \Iotronlab\TiptapSpatieMedia\TiptapSpatieMediaAction::class,
 ```
 
-After making this change, you'll be able to manage media uploads in your Tiptap Editor using Spatie's Media Library via Filament.
+💡 This change tells Filament's Tiptap Editor to use Spatie’s Media Library for managing media uploads.
+
+---
+
+You're now fully set up to manage media in Tiptap using the power of Spatie's Laravel Media Library!
 
 ## Usage
 

@@ -19,7 +19,7 @@ class TiptapSpatieMediaServiceProvider extends PackageServiceProvider
             ->name('tiptap-spatie-media')
             ->hasConfigFile()
             //->hasViews()
-            //->hasCommand(TiptapSpatieMediaCommand::class)
+            ->hasCommand(TiptapSpatieMediaCommand::class)
         ;
     }
 }
