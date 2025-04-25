@@ -87,6 +87,57 @@ TiptapEditor::make('description')
 
 Just ensure that you have updated the Tiptap Editor config file with the new `media_action`, and you're all set to manage media uploads seamlessly.
 
+## 💡 TipTap Media Integration for Laravel Models
+
+To enable **automated handling of media uploads and textareas** (like images embedded in rich text editors), use the provided trait:
+
+### ✅ Recommended: Use the `HasTipTapMedia` Trait
+
+Add the trait to any Eloquent model where you want media handling to be automatic. The trait will **automatically detect columns** containing rich text or image uploads.
+
+```php
+use Iotronlab\TiptapSpatieMedia\Trait\HasTipTapMedia;
+
+class Article extends Model
+{
+    use HasTipTapMedia;
+
+    protected $fillable = ['title', 'content', 'summary'];
+}
+```
+
+No extra configuration needed—this approach handles `created` and `saved` events internally.
+
+---
+
+### ⚙️ Optional: Manual Integration
+
+If you prefer more control or don't want to use the trait, you can manually call the required methods in the model’s boot method:
+
+```php
+use Iotronlab\TiptapSpatieMedia\TipTapMedia;
+
+class Article extends Model
+{
+    protected static function booted()
+    {
+        parent::booted();
+
+        self::created(function ($record) {
+            TipTapMedia::OnCreated($record, ['column_name']); // Replace with your actual rich-text/image field(s)
+        });
+
+        self::saved(function ($record) {
+            TipTapMedia::OnSaved($record, ['column_name']);
+        });
+    }
+}
+```
+
+> 🔁 Replace `'column_name'` with the field(s) you want TipTap Media to process.
+
+
+
 ## Testing
 
 You can run the package tests using:
